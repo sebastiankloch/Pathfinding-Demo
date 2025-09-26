@@ -8,11 +8,8 @@ namespace SK.PathfindingDemo
 		[SerializeField]
 		private GridElementType type;
 		[SerializeField]
-		private Color normalColor;
-		[SerializeField]
-		private Color moveColor;
-		[SerializeField]
-		private Color attackColor;
+		private GridElementData data;
+	
 		[SerializeField]
 		private TMP_Text text;
 
@@ -38,19 +35,29 @@ namespace SK.PathfindingDemo
 			return type;
 		}
 
-		public void GridHighlightMove()
+		public void HighlightMove()
 		{
-			text.color = moveColor;
+			text.color = data.moveColor;
 		}
 
-		public void GridHighlightAttack()
+		public void HighlightMoveOutOfRange()
 		{
-			text.color = attackColor;
+			text.color = data.moveOutOfRangeColor;
+		}
+
+		public void HighlightAttack()
+		{
+			text.color = data.attackColor;
+		}
+
+		public void HighlightAttackOutOfRange()
+		{
+			text.color = data.attackOutOfRangeColor;
 		}
 
 		public void ClearHighlight()
 		{
-			text.color = normalColor;
+			text.color = data.normalColor;
 		}
 	}
 }

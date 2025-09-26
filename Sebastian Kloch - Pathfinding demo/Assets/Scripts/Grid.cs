@@ -128,11 +128,15 @@ namespace SK.PathfindingDemo
 				return new int[0, 0];
 		}
 
-		public void HighlightMovePath(List<GridPosition> gridPositions)
+		public void HighlightMovePath(List<GridPosition> gridPositions, int range)
 		{
-			foreach (GridPosition gridPos in gridPositions)
+			for (int id = 0; id < gridPositions.Count; id++)
 			{
-				grid[gridPos.x][gridPos.z].GridHighlightMove();
+				GridPosition gridPos = gridPositions[id];
+				if (id <= range)
+					grid[gridPos.x][gridPos.z].HighlightMove();
+				else
+					grid[gridPos.x][gridPos.z].HighlightMoveOutOfRange();
 			}
 		}
 
@@ -140,7 +144,7 @@ namespace SK.PathfindingDemo
 		{
 			foreach (GridPosition gridPos in gridPositions)
 			{
-				grid[gridPos.x][gridPos.z].GridHighlightAttack();
+				grid[gridPos.x][gridPos.z].HighlightAttack();
 			}
 		}
 

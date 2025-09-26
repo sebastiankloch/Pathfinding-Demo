@@ -96,7 +96,7 @@ namespace SK.PathfindingDemo
 											List<GridPosition> path = pathfinder.FindPath(grid.GetGridAsPathfindingGrid_Move(), playerCharacter.GetGridPosition(), gridElement.GetGridPosition());
 											Debug.Log($"Path:\n{AStarPathfinder.PathToString(path)}");
 											grid.ClearHighlight();
-											grid.HighlightMovePath(path);
+											grid.HighlightMovePath(path, playerCharacter.GetMoveRange());
 										}
 
 									}
