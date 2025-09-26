@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,6 +19,10 @@ namespace SK.PathfindingDemo
 		private UnitManager unitManager;
 		[SerializeField]
 		private Grid grid;
+		[SerializeField]
+		private CameraController cameraController;
+		[SerializeField]
+		private CinemachineInputAxisController cinemaInputCont;
 
 		private AStarPathfinder pathfinder = new AStarPathfinder();
 		private GridElement selectedElement;
@@ -104,6 +109,48 @@ namespace SK.PathfindingDemo
 								Debug.LogError($"There is no {typeof(GridElement)}, after raycast check", col);
 						}
 					}
+				}
+
+				for (int i = 0; i < cinemaInputCont.Controllers.Count; i++)
+				{
+					InputAxisControllerBase<CinemachineInputAxisController.Reader>.Controller axis = cinemaInputCont.Controllers[i];
+
+					if (axis.Name == "Look Orbit X" || axis.Name == "Look Orbit Y")
+					{
+						axis.Enabled = mouse.middleButton.isPressed;
+					}
+				}
+			}
+
+			Keyboard keyboard = Keyboard.current;
+
+			if (keyboard != null)
+			{
+				if (keyboard.anyKey.isPressed)
+				{
+					Vector2 moveVector = Vector2.zero;
+
+					if (keyboard[Key.W].isPressed)
+					{
+						moveVector += Vector2.up;
+					}
+
+					if (keyboard[Key.S].isPressed)
+					{
+						moveVector += Vector2.down;
+					}
+
+					if (keyboard[Key.A].isPressed)
+					{
+						moveVector += Vector2.left;
+					}
+
+					if (keyboard[Key.D].isPressed)
+					{
+						moveVector += Vector2.right;
+					}
+
+					cameraController.Move(moveVector, keyboard[Key.LeftShift].isPressed);
 				}
 			}
 		}
