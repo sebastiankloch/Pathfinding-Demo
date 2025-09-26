@@ -820,6 +820,10 @@ PrefabInstance:
       propertyPath: moveRange
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5924130710375847930, guid: aafb8c80ee7a46a40acc0e1487188526, type: 3}
+      propertyPath: attackRange
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -56,7 +56,7 @@ namespace SK.PathfindingDemo
 											{
 												List<GridPosition> path = pathfinder.FindPath(grid.GetGridAsPathfindingGrid_Attack(), playerCharacter.GetGridPosition(), gridElement.GetGridPosition());
 												Debug.Log($"Attack Path:\n{AStarPathfinder.PathToString(path)}");
-												if (path.Count > 0)
+												if (path.Count > 0 && path.Count - 1 <= playerCharacter.GetAttackRange())
 												{
 													unit.Damage();
 													grid.ClearHighlight();
