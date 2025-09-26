@@ -113,11 +113,11 @@ namespace SK.PathfindingDemo
 
 				for (int i = 0; i < cinemaInputCont.Controllers.Count; i++)
 				{
-					InputAxisControllerBase<CinemachineInputAxisController.Reader>.Controller axis = cinemaInputCont.Controllers[i];
+					InputAxisControllerBase<CinemachineInputAxisController.Reader>.Controller controller = cinemaInputCont.Controllers[i];
 
-					if (axis.Name == "Look Orbit X" || axis.Name == "Look Orbit Y")
+					if (controller.Name == "Look Orbit X" || controller.Name == "Look Orbit Y")
 					{
-						axis.Enabled = mouse.middleButton.isPressed;
+						controller.Enabled = mouse.middleButton.isPressed;
 					}
 				}
 			}
