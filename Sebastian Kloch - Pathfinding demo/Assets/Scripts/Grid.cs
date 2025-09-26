@@ -14,6 +14,8 @@ namespace SK.PathfindingDemo
 		[SerializeField]
 		private GameObject obstaclePrefab;
 		[SerializeField]
+		private GameObject coverPrefab;
+		[SerializeField]
 		private UnitManager unitManager;
 
 		private Transform trans;
@@ -42,6 +44,10 @@ namespace SK.PathfindingDemo
 						elementPrefab = obstaclePrefab;
 					else if (x == 2 && z == 1)
 						elementPrefab = obstaclePrefab;
+					else if (x == 4 && z == 1)
+						elementPrefab = coverPrefab;
+					else if (x == 3 && z == 1)
+						elementPrefab = coverPrefab;
 					else
 						elementPrefab = traversablePrefab;
 
@@ -64,7 +70,7 @@ namespace SK.PathfindingDemo
 			}
 		}
 
-		public int[,] GetGridAsPathfindingGrid()
+		public int[,] GetGridAsPathfindingGrid_Move()
 		{
 			if (grid.Count > 0)
 			{
@@ -93,11 +99,48 @@ namespace SK.PathfindingDemo
 				return new int[0, 0];
 		}
 
+		public int[,] GetGridAsPathfindingGrid_Attack()
+		{
+			if (grid.Count > 0)
+			{
+				int[,] pathfindingGrid = new int[grid.Count, grid[0].Count];
+
+				for (int x = 0; x < grid.Count; x++)
+				{
+					for (int z = 0; z < grid[0].Count; z++)
+					{
+						pathfindingGrid[x, z] = grid[x][z].GetElementType() == GridElementType.Obstacle ? 1 : 0;
+
+						/*if (pathfindingGrid[x, z] == 0)
+						{
+							Unit unit = unitManager.GetUnitAtGridPosition(grid[x][z].GetGridPosition());
+							if (unit && unit.GetUnitType() != UnitType.None)
+							{
+								pathfindingGrid[x, z] = 1;
+							}
+						}*/
+					}
+				}
+
+				return pathfindingGrid;
+			}
+			else
+				return new int[0, 0];
+		}
+
 		public void HighlightMovePath(List<GridPosition> gridPositions)
 		{
 			foreach (GridPosition gridPos in gridPositions)
 			{
 				grid[gridPos.x][gridPos.z].GridHighlightMove();
+			}
+		}
+
+		public void HighlightAttackPath(List<GridPosition> gridPositions)
+		{
+			foreach (GridPosition gridPos in gridPositions)
+			{
+				grid[gridPos.x][gridPos.z].GridHighlightAttack();
 			}
 		}
 

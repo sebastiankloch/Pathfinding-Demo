@@ -50,7 +50,29 @@ namespace SK.PathfindingDemo
 									}
 									else if (unit.GetUnitType() == UnitType.Enemy)
 									{
-										unit.Damage();
+										if (gridElement.GetElementType() == GridElementType.Travelsable)
+										{
+											if (gridElement == selectedElement)
+											{
+												List<GridPosition> path = pathfinder.FindPath(grid.GetGridAsPathfindingGrid_Attack(), playerCharacter.GetGridPosition(), gridElement.GetGridPosition());
+												Debug.Log($"Attack Path:\n{AStarPathfinder.PathToString(path)}");
+												if (path.Count > 0)
+												{
+													unit.Damage();
+													grid.ClearHighlight();
+													selectedElement = null;
+												}
+											}
+											else
+											{
+												selectedElement = gridElement;
+												List<GridPosition> path = pathfinder.FindPath(grid.GetGridAsPathfindingGrid_Attack(), playerCharacter.GetGridPosition(), gridElement.GetGridPosition());
+												Debug.Log($"Attack Path:\n{AStarPathfinder.PathToString(path)}");
+												grid.ClearHighlight();
+												grid.HighlightAttackPath(path);
+											}
+
+										}
 									}
 								}
 								else
@@ -59,7 +81,7 @@ namespace SK.PathfindingDemo
 									{
 										if (gridElement == selectedElement)
 										{
-											List<GridPosition> path = pathfinder.FindPath(grid.GetGridAsPathfindingGrid(), playerCharacter.GetGridPosition(), gridElement.GetGridPosition());
+											List<GridPosition> path = pathfinder.FindPath(grid.GetGridAsPathfindingGrid_Move(), playerCharacter.GetGridPosition(), gridElement.GetGridPosition());
 											Debug.Log($"Path:\n{AStarPathfinder.PathToString(path)}");
 											if (path.Count > 0)
 											{
@@ -71,7 +93,7 @@ namespace SK.PathfindingDemo
 										else
 										{
 											selectedElement = gridElement;
-											List<GridPosition> path = pathfinder.FindPath(grid.GetGridAsPathfindingGrid(), playerCharacter.GetGridPosition(), gridElement.GetGridPosition());
+											List<GridPosition> path = pathfinder.FindPath(grid.GetGridAsPathfindingGrid_Move(), playerCharacter.GetGridPosition(), gridElement.GetGridPosition());
 											Debug.Log($"Path:\n{AStarPathfinder.PathToString(path)}");
 											grid.ClearHighlight();
 											grid.HighlightMovePath(path);

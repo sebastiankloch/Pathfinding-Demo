@@ -468,10 +468,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 329b3841ff767554f82b310ee50147d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startXSize: 5
+  startXSize: 6
   startZSize: 4
   traversablePrefab: {fileID: 2330871693591809308, guid: e6f2ee3d48a0a0e4d91780744975e510, type: 3}
   obstaclePrefab: {fileID: 6153447448801861617, guid: 83d652f1b24400c44804b78f9c5da4c0, type: 3}
+  coverPrefab: {fileID: 5311779947304500110, guid: c25a3111f74830941bc77c7f5a900bde, type: 3}
   unitManager: {fileID: 71842022}
 --- !u!1 &832575517
 GameObject:
