@@ -52,10 +52,11 @@ namespace SK.PathfindingDemo
 									{
 										if (gridElement.GetElementType() == GridElementType.Travelsable)
 										{
+											List<GridPosition> path = FindPath(grid.GetGridAsPathfindingGrid_Attack(), gridElement);
+											Debug.Log($"Attack Path:\n{AStarPathfinder.PathToString(path)}");
+
 											if (gridElement == selectedElement)
 											{
-												List<GridPosition> path = pathfinder.FindPath(grid.GetGridAsPathfindingGrid_Attack(), playerCharacter.GetGridPosition(), gridElement.GetGridPosition());
-												Debug.Log($"Attack Path:\n{AStarPathfinder.PathToString(path)}");
 												if (path.Count > 0 && path.Count - 1 <= playerCharacter.GetAttackRange())
 												{
 													unit.Damage();
@@ -66,8 +67,6 @@ namespace SK.PathfindingDemo
 											else
 											{
 												selectedElement = gridElement;
-												List<GridPosition> path = pathfinder.FindPath(grid.GetGridAsPathfindingGrid_Attack(), playerCharacter.GetGridPosition(), gridElement.GetGridPosition());
-												Debug.Log($"Attack Path:\n{AStarPathfinder.PathToString(path)}");
 												grid.ClearHighlight();
 												grid.HighlightAttackPath(path, playerCharacter.GetAttackRange());
 											}
@@ -79,10 +78,11 @@ namespace SK.PathfindingDemo
 								{
 									if (gridElement.GetElementType() == GridElementType.Travelsable)
 									{
+										List<GridPosition> path = FindPath(grid.GetGridAsPathfindingGrid_Move(), gridElement);
+										Debug.Log($"Path:\n{AStarPathfinder.PathToString(path)}");
+
 										if (gridElement == selectedElement)
 										{
-											List<GridPosition> path = pathfinder.FindPath(grid.GetGridAsPathfindingGrid_Move(), playerCharacter.GetGridPosition(), gridElement.GetGridPosition());
-											Debug.Log($"Path:\n{AStarPathfinder.PathToString(path)}");
 											if (path.Count > 0 && path.Count - 1 <= playerCharacter.GetMoveRange())
 											{
 												playerCharacter.MoveTo(gridElement);
@@ -93,8 +93,6 @@ namespace SK.PathfindingDemo
 										else
 										{
 											selectedElement = gridElement;
-											List<GridPosition> path = pathfinder.FindPath(grid.GetGridAsPathfindingGrid_Move(), playerCharacter.GetGridPosition(), gridElement.GetGridPosition());
-											Debug.Log($"Path:\n{AStarPathfinder.PathToString(path)}");
 											grid.ClearHighlight();
 											grid.HighlightMovePath(path, playerCharacter.GetMoveRange());
 										}
@@ -108,6 +106,11 @@ namespace SK.PathfindingDemo
 					}
 				}
 			}
+		}
+
+		private List<GridPosition> FindPath(int[,] grid, GridElement gridElement)
+		{
+			return pathfinder.FindPath(grid, playerCharacter.GetGridPosition(), gridElement.GetGridPosition());
 		}
 	}
 }
