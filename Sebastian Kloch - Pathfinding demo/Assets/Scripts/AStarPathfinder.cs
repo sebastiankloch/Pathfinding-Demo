@@ -73,12 +73,13 @@ namespace SK.PathfindingDemo
 
 				while (open.Count > 0)
 				{
-					Node current = SortAndGetNodeWithSmallestTotalCost();
+					int bestNodeIndex = GetIndexOfOpenNodeWithSmallestTotalCost();
+					Node current = open[bestNodeIndex];
 
 					if (current.gridPosition == goal)
 						return ReconstructPath(current);
 
-					open.RemoveAt(0);
+					open.RemoveAt(bestNodeIndex);
 					closed.Add(current);
 
 					neighbours.Clear();
@@ -121,10 +122,25 @@ namespace SK.PathfindingDemo
 			return null;
 		}
 
-		private Node SortAndGetNodeWithSmallestTotalCost()
+		private int GetIndexOfOpenNodeWithSmallestTotalCost()
 		{
-			open.Sort(Node.TotalCostComparision);
-			return open[0];
+			if (open.Count == 0)
+				return -1;
+
+			int bestIndex = 0;
+			int bestCost = open[0].GetF_TotalCost();
+
+			for (int i = 1; i < open.Count; i++)
+			{
+				int cost = open[i].GetF_TotalCost();
+				if (cost < bestCost)
+				{
+					bestCost = cost;
+					bestIndex = i;
+				}
+			}
+
+			return bestIndex;
 		}
 
 		private static void GetNeighbours(int[,] grid, Node node, List<Node> neighbours)
