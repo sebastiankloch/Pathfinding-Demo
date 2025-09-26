@@ -83,7 +83,7 @@ namespace SK.PathfindingDemo
 										{
 											List<GridPosition> path = pathfinder.FindPath(grid.GetGridAsPathfindingGrid_Move(), playerCharacter.GetGridPosition(), gridElement.GetGridPosition());
 											Debug.Log($"Path:\n{AStarPathfinder.PathToString(path)}");
-											if (path.Count > 0)
+											if (path.Count > 0 && path.Count - 1 <= playerCharacter.GetMoveRange())
 											{
 												playerCharacter.MoveTo(gridElement);
 												grid.ClearHighlight();
