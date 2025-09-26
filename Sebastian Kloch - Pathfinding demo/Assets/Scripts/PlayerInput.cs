@@ -69,7 +69,7 @@ namespace SK.PathfindingDemo
 												List<GridPosition> path = pathfinder.FindPath(grid.GetGridAsPathfindingGrid_Attack(), playerCharacter.GetGridPosition(), gridElement.GetGridPosition());
 												Debug.Log($"Attack Path:\n{AStarPathfinder.PathToString(path)}");
 												grid.ClearHighlight();
-												grid.HighlightAttackPath(path);
+												grid.HighlightAttackPath(path, playerCharacter.GetAttackRange());
 											}
 
 										}
