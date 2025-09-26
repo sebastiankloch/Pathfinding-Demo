@@ -42,6 +42,11 @@ namespace SK.PathfindingDemo
 			{
 				return first.GetF_TotalCost().CompareTo(second.GetF_TotalCost()) * -1;
 			}
+
+			public static int TotalCostComparision(Node first, Node second)
+			{
+				return first.GetF_TotalCost().CompareTo(second.GetF_TotalCost());
+			}
 		}
 
 		private static int Manhattan(GridPosition pos, GridPosition posOther)
@@ -118,7 +123,7 @@ namespace SK.PathfindingDemo
 
 		private Node SortAndGetNodeWithSmallestTotalCost()
 		{
-			open.Sort(Node.ReverseTotalCostComparision);
+			open.Sort(Node.TotalCostComparision);
 			return open[0];
 		}
 
