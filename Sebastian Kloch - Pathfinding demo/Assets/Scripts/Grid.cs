@@ -92,5 +92,24 @@ namespace SK.PathfindingDemo
 			else
 				return new int[0, 0];
 		}
+
+		public void HighlightMovePath(List<GridPosition> gridPositions)
+		{
+			foreach (GridPosition gridPos in gridPositions)
+			{
+				grid[gridPos.x][gridPos.z].GridHighlightMove();
+			}
+		}
+
+		public void ClearHighlight()
+		{
+			for (int x = 0; x < grid.Count; x++)
+			{
+				for (int z = 0; z < grid[x].Count; z++)
+				{
+					grid[x][z].ClearHighlight();
+				}
+			}
+		}
 	}
 }

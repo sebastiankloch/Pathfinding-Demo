@@ -20,6 +20,7 @@ namespace SK.PathfindingDemo
 		private Grid grid;
 
 		private AStarPathfinder pathfinder = new AStarPathfinder();
+		private GridElement selectedElement;
 
 		private void Update()
 		{
@@ -56,9 +57,26 @@ namespace SK.PathfindingDemo
 								{
 									if (gridElement.GetElementType() == GridElementType.Travelsable)
 									{
-										List<GridPosition> path = pathfinder.FindPath(grid.GetGridAsPathfindingGrid(), playerCharacter.GetGridPosition(), gridElement.GetGridPosition());
-										Debug.Log($"Path:\n{AStarPathfinder.PathToString(path)}");
-										playerCharacter.MoveTo(gridElement);
+										if (gridElement == selectedElement)
+										{
+											List<GridPosition> path = pathfinder.FindPath(grid.GetGridAsPathfindingGrid(), playerCharacter.GetGridPosition(), gridElement.GetGridPosition());
+											Debug.Log($"Path:\n{AStarPathfinder.PathToString(path)}");
+											if (path.Count > 0)
+											{
+												playerCharacter.MoveTo(gridElement);
+												grid.ClearHighlight();
+												selectedElement = null;
+											}
+										}
+										else
+										{
+											selectedElement = gridElement;
+											List<GridPosition> path = pathfinder.FindPath(grid.GetGridAsPathfindingGrid(), playerCharacter.GetGridPosition(), gridElement.GetGridPosition());
+											Debug.Log($"Path:\n{AStarPathfinder.PathToString(path)}");
+											grid.ClearHighlight();
+											grid.HighlightMovePath(path);
+										}
+
 									}
 								}
 							}
