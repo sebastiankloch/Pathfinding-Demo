@@ -26,5 +26,10 @@ namespace SK.PathfindingDemo
 				moveSpeed = this.moveSpeed;
 			cameraPivot.Translate(moveSpeed * Time.deltaTime * moveDirection, Space.World);
 		}
+
+		public void ResetCameraPosition()
+		{
+			cameraPivot.position = Vector3.zero;
+		}
 	}
 }
