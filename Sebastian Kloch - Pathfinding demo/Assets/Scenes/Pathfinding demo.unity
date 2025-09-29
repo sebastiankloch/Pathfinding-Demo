@@ -4095,8 +4095,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 676.5674, y: -416.1329}
-  m_SizeDelta: {x: -1353.1346, y: -832.2658}
+  m_AnchoredPosition: {x: 676.5674, y: -393.45755}
+  m_SizeDelta: {x: -1353.1346, y: -786.915}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1670978641
 MonoBehaviour:
@@ -4463,6 +4463,8 @@ MonoBehaviour:
     Mouse Button - Interaction
 
     Mouse Scroll - Zoom
+
+    By: Sebastian Kloch
 
 
 
