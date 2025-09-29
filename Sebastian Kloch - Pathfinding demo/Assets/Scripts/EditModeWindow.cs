@@ -10,6 +10,10 @@ namespace SK.PathfindingDemo
 		[SerializeField]
 		private TMP_InputField inputFieldDepth;
 		[SerializeField]
+		private TMP_InputField inputFieldMoveRange;
+		[SerializeField]
+		private TMP_InputField inputFieldAttackRange;
+		[SerializeField]
 		private Grid grid;
 		[SerializeField]
 		private UnitManager unitManager;
@@ -22,6 +26,8 @@ namespace SK.PathfindingDemo
 		{
 			inputFieldWidth.text = grid.GetStartXSize().ToString();
 			inputFieldDepth.text = grid.GetStartXSize().ToString();
+			inputFieldMoveRange.text = unitManager.GetPlayer().GetMoveRange().ToString();
+			inputFieldAttackRange.text = unitManager.GetPlayer().GetAttackRange().ToString();
 		}
 
 		public void Open()
@@ -71,6 +77,16 @@ namespace SK.PathfindingDemo
 		public void SetCoverBrush()
 		{
 			gridEditor.SetBrushToGridElement(GridElementType.Cover);
+		}
+
+		public void SetPlayerMoveRange(string rangeAsText)
+		{
+			unitManager.GetPlayer().SetMoveRange(int.Parse(rangeAsText));
+		}
+
+		public void SetPlayerAttackRange(string rangeAsText)
+		{
+			unitManager.GetPlayer().SetAttackRange(int.Parse(rangeAsText));
 		}
 	}
 }
