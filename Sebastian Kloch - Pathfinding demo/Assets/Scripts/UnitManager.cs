@@ -7,6 +7,8 @@ namespace SK.PathfindingDemo
 	{
 		[SerializeField]
 		private List<Unit> units;
+		[SerializeField]
+		private Grid grid;
 
 		private void Start()
 		{
@@ -32,6 +34,40 @@ namespace SK.PathfindingDemo
 			}
 
 			return null;
+		}
+
+		public void ClearUnitsOutsideOfBounds(int xSize, int zSize)
+		{
+			for (int id = units.Count - 1; id >= 0; id--)
+			{
+				if (!units[id])
+				{
+					units.RemoveAt(id);
+					continue;
+				}
+
+				GridPosition gridPosition = units[id].GetGridPosition();
+				if (gridPosition.x >= xSize ||
+					gridPosition.z >= zSize)
+				{
+					if (units[id].GetUnitType() == UnitType.Player)
+					{
+						GridPosition playerPos = new GridPosition(0, 0);
+						grid.SetElementAt(GridElementType.Travelsable, playerPos);
+						GridElement element = grid.GetElementAt(playerPos);
+						if (element)
+						{
+							((PlayerCharacter)units[id]).TeleportTo(element);
+						}
+
+					}
+					else
+					{
+						Destroy(units[id].gameObject);
+						units.RemoveAt(id);
+					}
+				}
+			}
 		}
 	}
 }

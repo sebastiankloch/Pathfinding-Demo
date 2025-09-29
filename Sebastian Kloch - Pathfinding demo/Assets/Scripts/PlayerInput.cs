@@ -117,7 +117,7 @@ namespace SK.PathfindingDemo
 											{
 												if (path.Count > 0 && path.Count - 1 <= playerCharacter.GetMoveRange())
 												{
-													playerCharacter.MoveTo(gridElement);
+													playerCharacter.TeleportTo(gridElement);
 													grid.ClearHighlight();
 													selectedElement = null;
 												}

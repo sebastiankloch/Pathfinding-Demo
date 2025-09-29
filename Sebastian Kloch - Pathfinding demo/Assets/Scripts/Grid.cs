@@ -11,12 +11,6 @@ namespace SK.PathfindingDemo
 		private int startZSize;
 		[SerializeField]
 		private GameObject[] elementPrefabs;
-		/*[SerializeField]
-		private GameObject traversablePrefab;
-		[SerializeField]
-		private GameObject obstaclePrefab;
-		[SerializeField]
-		private GameObject coverPrefab;*/
 		[SerializeField]
 		private UnitManager unitManager;
 
@@ -221,7 +215,7 @@ namespace SK.PathfindingDemo
 		{
 			if (gridPosition.x < 0 || gridPosition.x >= grid.Count || gridPosition.z < 0 || gridPosition.z >= grid[gridPosition.x].Count)
 			{
-				Debug.LogWarning($"SetElementAt: Position ({gridPosition}) is out of bounds!");
+				Debug.LogError($"SetElementAt: Position ({gridPosition}) is out of bounds!");
 				return;
 			}
 
@@ -238,6 +232,17 @@ namespace SK.PathfindingDemo
 			}
 		}
 
+		public GridElement GetElementAt(GridPosition gridPosition)
+		{
+			if (gridPosition.x < 0 || gridPosition.x >= grid.Count || gridPosition.z < 0 || gridPosition.z >= grid[gridPosition.x].Count)
+			{
+				Debug.LogError($"GetGridElementAt: Position ({gridPosition}) is out of bounds!");
+				return null;
+			}
+
+			return grid[gridPosition.x][gridPosition.z];
+		}
+
 		public int GetStartXSize()
 		{
 			return startXSize;
@@ -246,6 +251,16 @@ namespace SK.PathfindingDemo
 		public int GetStartZSize()
 		{
 			return startZSize;
+		}
+
+		public int GetMapXSize()
+		{
+			return grid.Count;
+		}
+
+		public int GetMapZSize()
+		{
+			return grid[0].Count;
 		}
 	}
 }

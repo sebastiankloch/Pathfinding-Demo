@@ -22,5 +22,10 @@ namespace SK.PathfindingDemo
 		{
 			return inst.state;
 		}
+
+		public static void ChangeState(GameplayState newState)
+		{
+			inst.state = newState;
+		}
 	}
 }

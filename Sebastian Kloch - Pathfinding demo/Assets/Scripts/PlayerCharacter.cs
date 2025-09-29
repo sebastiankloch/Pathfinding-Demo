@@ -29,7 +29,7 @@ namespace SK.PathfindingDemo
 			attackRange = value;
 		}
 
-		public void MoveTo(GridElement gridElement)
+		public void TeleportTo(GridElement gridElement)
 		{
 			transform.position = gridElement.GetGlobaPos();
 			SetGridPosition(gridElement.GetGridPosition());
