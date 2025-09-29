@@ -1125,13 +1125,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15212338, y: 0.0000000011898753, z: -1.8313932e-10, w: 0.98836154}
-  m_LocalPosition: {x: 0, y: 1.5035291, z: -4.7685847}
+  m_LocalRotation: {x: 0.5714299, y: -0.000000043810072, z: 0.000000030505525, w: 0.8206509}
+  m_LocalPosition: {x: 0, y: 4.6894445, z: -1.7346787}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 17.46, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1527,7 +1527,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 421994523}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1714,8 +1714,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 329b3841ff767554f82b310ee50147d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startXSize: 6
-  startZSize: 4
+  startXSize: 10
+  startZSize: 10
   elementPrefabs:
   - {fileID: 2330871693591809308, guid: e6f2ee3d48a0a0e4d91780744975e510, type: 3}
   - {fileID: 6153447448801861617, guid: 83d652f1b24400c44804b78f9c5da4c0, type: 3}
@@ -3403,8 +3403,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1436515782}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15212338, y: 0.0000000011898754, z: -1.8313932e-10, w: 0.98836154}
-  m_LocalPosition: {x: 0, y: 1.5035291, z: -4.7685847}
+  m_LocalRotation: {x: 0.5714299, y: -0.000000043810076, z: 0.000000030505525, w: 0.8206509}
+  m_LocalPosition: {x: 0, y: 4.6894445, z: -1.7346787}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3483,7 +3483,7 @@ MonoBehaviour:
       Time: 2
     Restrictions: 0
   VerticalAxis:
-    Value: 17.5
+    Value: 69.7
     Center: 17.5
     Range: {x: -10, y: 89}
     Wrap: 0
@@ -5498,13 +5498,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5924130710375847930, guid: aafb8c80ee7a46a40acc0e1487188526, type: 3}
-      propertyPath: moveRange
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5924130710375847930, guid: aafb8c80ee7a46a40acc0e1487188526, type: 3}
-      propertyPath: attackRange
-      value: 2
-      objectReference: {fileID: 0}
+      propertyPath: grid
+      value: 
+      objectReference: {fileID: 524657015}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5586,6 +5582,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 421994526}
   - {fileID: 939034672}
   - {fileID: 1361246078}
   - {fileID: 71842023}
@@ -5603,4 +5600,3 @@ SceneRoots:
   - {fileID: 942016089}
   - {fileID: 1800051609}
   - {fileID: 1628921439}
-  - {fileID: 421994526}

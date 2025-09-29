@@ -82,7 +82,7 @@ namespace SK.PathfindingDemo
 										{
 
 										}
-										else if (unit.GetUnitType() == UnitType.Enemy)
+										else if (unit.GetUnitType() == UnitType.Enemy && !playerCharacter.IsRunning())
 										{
 											if (gridElement.GetElementType() == GridElementType.Travelsable)
 											{
@@ -119,7 +119,7 @@ namespace SK.PathfindingDemo
 											{
 												if (path.Count > 0 && path.Count - 1 <= playerCharacter.GetMoveRange())
 												{
-													playerCharacter.TeleportTo(gridElement);
+													playerCharacter.RunTo(gridElement, path);
 													grid.ClearHighlight();
 													selectedElement = null;
 												}
