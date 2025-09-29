@@ -35,22 +35,29 @@ namespace SK.PathfindingDemo
 				grid.Add(new List<GridElement>());
 				for (int z = 0; z < startZSize; z++)
 				{
-					GameObject elementPrefab;
-					if (x == 0 && z == 2)
-						elementPrefab = elementPrefabs[1];
-					else if (x == 2 && z == 1)
-						elementPrefab = elementPrefabs[1];
-					else if (x == 4 && z == 1)
-						elementPrefab = elementPrefabs[2];
-					else if (x == 3 && z == 1)
-						elementPrefab = elementPrefabs[2];
-					else
-						elementPrefab = elementPrefabs[0];
+					//GameObject elementPrefab = GetDebugElement(x, z);
+					GameObject elementPrefab = elementPrefabs[0];
 
 					grid[x].Add(null);
 					InstantiateElement(elementPrefab, rotZero, x, z);
 				}
 			}
+		}
+
+		private GameObject GetDebugElement(int x, int z)
+		{
+			GameObject elementPrefab;
+			if (x == 0 && z == 2)
+				elementPrefab = elementPrefabs[1];
+			else if (x == 2 && z == 1)
+				elementPrefab = elementPrefabs[1];
+			else if (x == 4 && z == 1)
+				elementPrefab = elementPrefabs[2];
+			else if (x == 3 && z == 1)
+				elementPrefab = elementPrefabs[2];
+			else
+				elementPrefab = elementPrefabs[0];
+			return elementPrefab;
 		}
 
 		private void InstantiateElement(GameObject elementPrefab, Quaternion rotZero, int x, int z)
@@ -113,7 +120,7 @@ namespace SK.PathfindingDemo
 					{
 						pathfindingGrid[x, z] = grid[x][z].GetElementType() == GridElementType.Obstacle ? 1 : 0;
 
-						if (pathfindingGrid[x, z] == 0 && x != targetPosition.x && z != targetPosition.z)
+						if (pathfindingGrid[x, z] == 0 && (x != targetPosition.x || z != targetPosition.z))
 						{
 							Unit unit = unitManager.GetUnitAtGridPosition(grid[x][z].GetGridPosition());
 							if (unit && unit.GetUnitType() != UnitType.None)

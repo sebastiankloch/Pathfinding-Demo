@@ -22,8 +22,8 @@ namespace SK.PathfindingDemo
 				{
 					unit.SetGridPosition(new GridPosition(0, 0));
 				}
-				else if (unit.GetUnitType() == UnitType.Enemy)
-					unit.SetGridPosition(new GridPosition(3, 2));
+				/*else if (unit.GetUnitType() == UnitType.Enemy)
+					unit.SetGridPosition(new GridPosition(3, 2));*/
 			}
 		}
 

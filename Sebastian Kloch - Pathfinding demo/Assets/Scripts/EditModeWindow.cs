@@ -38,8 +38,13 @@ namespace SK.PathfindingDemo
 		public void ApplyGridSize()
 		{
 			Debug.Log("Apply Grid Size");
-			grid.ChangeGridSize(int.Parse(inputFieldWidth.text), int.Parse(inputFieldDepth.text));
-			unitManager.ClearUnitsOutsideOfBounds(grid.GetMapXSize(), grid.GetMapZSize());
+			if (!string.IsNullOrEmpty(inputFieldWidth.text) && !string.IsNullOrEmpty(inputFieldDepth.text))
+			{
+				grid.ChangeGridSize(int.Parse(inputFieldWidth.text), int.Parse(inputFieldDepth.text));
+				unitManager.ClearUnitsOutsideOfBounds(grid.GetMapXSize(), grid.GetMapZSize());
+				inputFieldWidth.text = grid.GetMapXSize().ToString();
+				inputFieldDepth.text = grid.GetMapZSize().ToString();
+			}
 		}
 
 		public void SwitchToPlayMode()
@@ -81,12 +86,14 @@ namespace SK.PathfindingDemo
 
 		public void SetPlayerMoveRange(string rangeAsText)
 		{
-			unitManager.GetPlayer().SetMoveRange(int.Parse(rangeAsText));
+			if (!string.IsNullOrEmpty(rangeAsText))
+				unitManager.GetPlayer().SetMoveRange(int.Parse(rangeAsText));
 		}
 
 		public void SetPlayerAttackRange(string rangeAsText)
 		{
-			unitManager.GetPlayer().SetAttackRange(int.Parse(rangeAsText));
+			if (!string.IsNullOrEmpty(rangeAsText))
+				unitManager.GetPlayer().SetAttackRange(int.Parse(rangeAsText));
 		}
 	}
 }

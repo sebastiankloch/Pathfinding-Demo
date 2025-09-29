@@ -89,6 +89,6 @@ MonoBehaviour:
   unitType: 1
   moveRange: 4
   attackRange: 2
-  moveSpeed: 5
+  moveSpeed: 10
   animator: {fileID: 1965391772151503666}
   grid: {fileID: 0}
