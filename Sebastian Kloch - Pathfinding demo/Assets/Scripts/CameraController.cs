@@ -15,7 +15,6 @@ namespace SK.PathfindingDemo
 
 		public void Move(Vector2 input, bool sprint)
 		{
-			Debug.Log("Move: " + input);
 			Vector3 forward = Vector3.ProjectOnPlane(cameraTrans.forward, Vector3.up).normalized;
 			Vector3 right = Vector3.ProjectOnPlane(cameraTrans.right, Vector3.up).normalized;
 			Vector3 moveDirection = (forward * input.y + right * input.x).normalized;

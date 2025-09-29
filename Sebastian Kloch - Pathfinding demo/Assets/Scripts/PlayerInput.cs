@@ -32,39 +32,92 @@ namespace SK.PathfindingDemo
 			Mouse mouse = Mouse.current;
 			if (mouse != null)
 			{
-				if (mouse.leftButton.wasPressedThisFrame)
+				if(GameplayManager.GetState() == GameplayState.EditMode)
 				{
-					Ray ray = cam.ScreenPointToRay(mouse.position.value);
-
-					if (Physics.Raycast(ray, out RaycastHit hit, 1000, gridLayerMask))
+					if (mouse.leftButton.isPressed)
 					{
-						Collider col = hit.collider;
-						if (col.CompareTag(GRID_ELEMENT))
+						Ray ray = cam.ScreenPointToRay(mouse.position.value);
+
+						if (Physics.Raycast(ray, out RaycastHit hit, 1000, gridLayerMask))
 						{
-							GridElement gridElement = col.GetComponent<GridElement>();
-							if (gridElement)
+							Collider col = hit.collider;
+							if (col.CompareTag(GRID_ELEMENT))
 							{
-								Debug.Log($"Clicked on {gridElement.GetGridPosition()}");
-								Unit unit = unitManager.GetUnitAtGridPosition(gridElement.GetGridPosition());
-
-								if (unit)
+								GridElement gridElement = col.GetComponent<GridElement>();
+								if (gridElement)
 								{
-									if (unit.GetUnitType() == UnitType.Player)
-									{
+									Debug.Log($"Clicked on {gridElement.GetGridPosition()}");
 
+									grid.SetElementAt(GridElementType.Obstacle, gridElement.GetGridPosition());
+								}
+								else
+									Debug.LogError($"There is no {typeof(GridElement)}, after raycast check", col);
+							}
+						}
+					}	
+				}
+				else if (GameplayManager.GetState() == GameplayState.PlayMode)
+				{
+					if (mouse.leftButton.wasPressedThisFrame)
+					{
+						Ray ray = cam.ScreenPointToRay(mouse.position.value);
+
+						if (Physics.Raycast(ray, out RaycastHit hit, 1000, gridLayerMask))
+						{
+							Collider col = hit.collider;
+							if (col.CompareTag(GRID_ELEMENT))
+							{
+								GridElement gridElement = col.GetComponent<GridElement>();
+								if (gridElement)
+								{
+									Debug.Log($"Clicked on {gridElement.GetGridPosition()}");
+
+									Unit unit = unitManager.GetUnitAtGridPosition(gridElement.GetGridPosition());
+
+									if (unit)
+									{
+										if (unit.GetUnitType() == UnitType.Player)
+										{
+
+										}
+										else if (unit.GetUnitType() == UnitType.Enemy)
+										{
+											if (gridElement.GetElementType() == GridElementType.Travelsable)
+											{
+												List<GridPosition> path = FindPath(grid.GetGridAsPathfindingGrid_Attack(gridElement.GetGridPosition()), gridElement);
+												Debug.Log($"Attack Path:\n{AStarPathfinder.PathToString(path)}");
+
+												if (gridElement == selectedElement)
+												{
+													if (path.Count > 0 && path.Count - 1 <= playerCharacter.GetAttackRange())
+													{
+														unit.Damage();
+														grid.ClearHighlight();
+														selectedElement = null;
+													}
+												}
+												else
+												{
+													selectedElement = gridElement;
+													grid.ClearHighlight();
+													grid.HighlightAttackPath(path, playerCharacter.GetAttackRange());
+												}
+
+											}
+										}
 									}
-									else if (unit.GetUnitType() == UnitType.Enemy)
+									else
 									{
 										if (gridElement.GetElementType() == GridElementType.Travelsable)
 										{
-											List<GridPosition> path = FindPath(grid.GetGridAsPathfindingGrid_Attack(), gridElement);
-											Debug.Log($"Attack Path:\n{AStarPathfinder.PathToString(path)}");
+											List<GridPosition> path = FindPath(grid.GetGridAsPathfindingGrid_Move(), gridElement);
+											Debug.Log($"Path:\n{AStarPathfinder.PathToString(path)}");
 
 											if (gridElement == selectedElement)
 											{
-												if (path.Count > 0 && path.Count - 1 <= playerCharacter.GetAttackRange())
+												if (path.Count > 0 && path.Count - 1 <= playerCharacter.GetMoveRange())
 												{
-													unit.Damage();
+													playerCharacter.MoveTo(gridElement);
 													grid.ClearHighlight();
 													selectedElement = null;
 												}
@@ -73,43 +126,19 @@ namespace SK.PathfindingDemo
 											{
 												selectedElement = gridElement;
 												grid.ClearHighlight();
-												grid.HighlightAttackPath(path, playerCharacter.GetAttackRange());
+												grid.HighlightMovePath(path, playerCharacter.GetMoveRange());
 											}
 
 										}
 									}
 								}
 								else
-								{
-									if (gridElement.GetElementType() == GridElementType.Travelsable)
-									{
-										List<GridPosition> path = FindPath(grid.GetGridAsPathfindingGrid_Move(), gridElement);
-										Debug.Log($"Path:\n{AStarPathfinder.PathToString(path)}");
-
-										if (gridElement == selectedElement)
-										{
-											if (path.Count > 0 && path.Count - 1 <= playerCharacter.GetMoveRange())
-											{
-												playerCharacter.MoveTo(gridElement);
-												grid.ClearHighlight();
-												selectedElement = null;
-											}
-										}
-										else
-										{
-											selectedElement = gridElement;
-											grid.ClearHighlight();
-											grid.HighlightMovePath(path, playerCharacter.GetMoveRange());
-										}
-
-									}
-								}
+									Debug.LogError($"There is no {typeof(GridElement)}, after raycast check", col);
 							}
-							else
-								Debug.LogError($"There is no {typeof(GridElement)}, after raycast check", col);
 						}
 					}
 				}
+					
 
 				for (int i = 0; i < cinemaInputCont.Controllers.Count; i++)
 				{
