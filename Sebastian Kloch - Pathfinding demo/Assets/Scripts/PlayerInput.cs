@@ -23,6 +23,8 @@ namespace SK.PathfindingDemo
 		private CameraController cameraController;
 		[SerializeField]
 		private CinemachineInputAxisController cinemaInputCont;
+		[SerializeField]
+		private GridEditor gridEditor;
 
 		private AStarPathfinder pathfinder = new AStarPathfinder();
 		private GridElement selectedElement;
@@ -48,7 +50,7 @@ namespace SK.PathfindingDemo
 								{
 									Debug.Log($"Clicked on {gridElement.GetGridPosition()}");
 
-									grid.SetElementAt(GridElementType.Obstacle, gridElement.GetGridPosition());
+									gridEditor.OnInteraction(gridElement);
 								}
 								else
 									Debug.LogError($"There is no {typeof(GridElement)}, after raycast check", col);

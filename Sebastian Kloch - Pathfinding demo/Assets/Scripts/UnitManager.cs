@@ -9,6 +9,10 @@ namespace SK.PathfindingDemo
 		private List<Unit> units;
 		[SerializeField]
 		private Grid grid;
+		[SerializeField]
+		private PlayerCharacter player;
+		[SerializeField]
+		private GameObject enemyPrefab;
 
 		private void Start()
 		{
@@ -59,13 +63,41 @@ namespace SK.PathfindingDemo
 						{
 							((PlayerCharacter)units[id]).TeleportTo(element);
 						}
-
 					}
 					else
 					{
 						Destroy(units[id].gameObject);
 						units.RemoveAt(id);
 					}
+				}
+			}
+		}
+
+		public PlayerCharacter GetPlayer()
+		{
+			return player;
+		}
+
+		public void CreateEnemyUnitAt(GridElement gridElement)
+		{
+			if (!GetUnitAtGridPosition(gridElement.GetGridPosition()))
+			{
+				GameObject enemyGO = Instantiate(enemyPrefab, gridElement.GetGlobaPos(), Quaternion.identity);
+				EnemyCharacter enemy = enemyGO.GetComponent<EnemyCharacter>();
+				enemy.SetGridPosition(gridElement.GetGridPosition());
+				units.Add(enemy);
+			}
+		}
+
+		public void ClearEnemyUnitAt(GridPosition gridPosition)
+		{
+			for (int id = 0; id < units.Count; id++)
+			{
+				if (units[id] && units[id].GetGridPosition() == gridPosition && units[id].GetUnitType() == UnitType.Enemy)
+				{
+					Destroy(units[id].gameObject);
+					units.RemoveAt(id);
+					return;
 				}
 			}
 		}
